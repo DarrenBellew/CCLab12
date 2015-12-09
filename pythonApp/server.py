@@ -108,7 +108,7 @@ def WriteMessage(name):
 	m.set_body(message)
 	resp = "Failed to write message"
 	if rs is not None:
-		q.write(m)
+		rs.write(m)
 		resp = "Message '" + m.get_body() + "' is written to queue: " + name
 
 	resp = {"Response": resp}
@@ -117,7 +117,7 @@ def WriteMessage(name):
 
 @app.route("/queues/<name>/msgs", methods=["GET"])
 def ReadMessage(name):
-	name = "C13729611_"+name 
+	name = "C13729611_"+name
 	conn = get_conn()
 	rs = conn.get_conn()
 
