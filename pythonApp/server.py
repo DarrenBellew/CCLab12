@@ -56,12 +56,12 @@ def ListAllQueues():
 	return Response(response=resp, mimetype="application/json")
 
 @app.route("/queues", methods=["POST"])
-def CreateAQueue(queueName):
-	queueName = "C13729611_" + queueName
+def CreateAQueue(name):
+	name = "C13729611_" + name
 	conn = get_conn()
 	rs = conn.get_all_queues()
-	conn.create_queue(queueName)
-	resp = "queue '" + queueName + "'' is now created."
+	conn.create_queue(name)
+	resp = "queue '" + name + "'' is now created."
 	resp = {"response": resp}
 	resp = json.dumps(resp)
 	return Response(response=resp, mimetype="application/json")
