@@ -73,7 +73,7 @@ def CreateAQueue():
 def DeleteAQueue(name):
 	conn = get_conn()
 	name = "C13729611_" + name
-
+	rs=conn.get_all_queues()
 	resp = ""
 	if "/747210654827/"+name in rs:
 		conn.delete_queue(conn.get_queue('queueName'))
