@@ -89,7 +89,7 @@ def DeleteAQueue(name):
 def CountQueues(name):
 	name = "C13729611_"+name
 	conn = get_conn()
-	rs = conn.get_all_queues()
+	rs = conn.ge_tqueue(name)
 	resp = str(rs.count())
 	resp = {"response":resp}
 	resp = json.dumps(resp)
