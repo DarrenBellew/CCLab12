@@ -82,6 +82,7 @@ def DeleteAQueue(name):
 		resp = "queue '" + name + "' is not deleted."
 
 	resp = {"response": resp}
+	return Response(response=resp, mimetype="application/json")
 
 @app.route("/queues/<name>/msgs/count", methods=["GET"])
 def CountQueues(name):
