@@ -99,7 +99,7 @@ def CountQueues(name):
 def WriteMessage(name):
 	name = "C13729611_"+name
 	conn = get_conn()
-	rs = conn.get_queue(queueName)
+	rs = conn.get_queue(name)
 
 	body = request.get_json(force=True)
 	message = body["content"]
