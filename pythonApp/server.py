@@ -136,9 +136,9 @@ def ConsumeMessage(name):
 
 	m = rs.read(60)
 	rs.delete_message(m)
-
 	resp = {"Response": "Remove message " + str(m.get_body())}
 	resp = json.dumps(resp)
+	return Response(response=resp, mimetype="application/json")
 
 # Get the keys from a specific url and then use them to connect to AWS Service
 
