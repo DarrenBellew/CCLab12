@@ -7,7 +7,8 @@ from boto.exception import SQSError
 import sys
 
 
-#curl -s -X	GET -H 'Accept:	application/json' http://localhost:5000/queues | python	-mjson.tool
+# curl -s -X GET -H 'Accept: application/json'
+# http://localhost:5000/queues | python	-mjson.tool
 
 def get_conn():
 	res = requests.get('http://ec2-52-30-7-5.eu-west-1.compute.amazonaws.com:81/key')
@@ -15,23 +16,18 @@ def get_conn():
 	conn = boto.sqs.connect_to_region("eu-west-1", aws_access_key_id=keyId, aws_secret_access_key=key)
 	return conn
 
+# @app.route('/images', methods=['GET'])
 
+# GET /queues List all queues
+# POST /queues Create a new queue
+# DELETE /queues/<qid>	Delete a specific queue
+# GET /queues/<qid>/msgs Get a message, return it to the user	
+# GET /queues/<qid>/msgs/count Return the number of messages in a queue
+# POST /queues/<qid>/msgs Write a new message to a queue
+# DELETE /queues/<qid>/msgs Get	and	delete a message from the queue
 
-
-
-#@app.route('/images', methods=['GET'])
-"""
-GET		/queues	List	all	queues
-POST	/queues	Create	a new queue
-DELETE	/queues/<qid>	Delete a specific queue
-GET		/queues/<qid>/msgs Get a message, return it	to	the	user	
-GET		/queues/<qid>/msgs/count Return	the	number of messages in a queue
-POST	/queues/<qid>/msgs	Write a	new	message	to a queue
-DELETE	/queues/<qid>/msgs 	Get	and	delete a message from the queue
-"""
-
-#List all queues
-@app.route("/queues", methods=["GET"])   
+# List all queues
+@app.route("/queues", methods=["GET"])
 def ListAllQueues():
 	rs = get_conn().get_all_queues()
 	all[]
@@ -47,11 +43,11 @@ def CreateAQueue(queueName):
 	rs = conn.get_all_queues()
 	conn.create_queue(queueName)
 	resp = "queue '" + queueName + "'' is now created."
-	resp = {"response":resp}
-	resp = json.dumps(resp_)
-	return Response(response = resp, mimetype="application/json")
+	resp = {"response": resp}
+	resp = json.dumps(resp)
+	return Response(response=resp, mimetype="application/json")
 
-#
+
 @app.route("/queues", methods["DELETE"])
 def DeleteAQueue(queueName):
 	conn = get_conn()
@@ -63,7 +59,7 @@ def DeleteAQueue(queueName):
 	else:
 		resp = "queue '" + queueName + "' is not deleted."
 
-	resp = {"response":resp}
+	resp = {"response": resp}
 
 @app.route("/queues/<name>/msgs/count", methods["GET"])
 def CountQueues(name):
@@ -84,7 +80,7 @@ def WriteMessage(name, message):
 	m = Message()
 	m.set_body(message)
 	resp = "Failed to write message"
-	if rs != None:
+	if rs is not None:
 		q.write(m)
 		resp = "Message '" + m.get_body() + "' is written to queue: " + name
 
@@ -99,9 +95,9 @@ def ReadMessage(name):
 	rs = conn.get_conn()
 
 	m = []
-	for i in range(0,q.count()):
+	for i in range(0, q.count()):
 		m.append(rs.read(60).get_body())
-	
+
 	resp = json.dumps(m)
 	return Response(response=resp, mimetype="application/json")
 
@@ -110,14 +106,11 @@ def ConsumeMessage(name):
 	name = "C13729611_" + name
 	conn = get_conn()
 	rs = conn.get_conn()
-	resp = {"Response":"Remove message " + str(deleteMessage(rs, name))}
+	resp = {"Response": "Remove message " + str(deleteMessage(rs, name))}
 	resp = json.dumps(resp)
 
-# Get the keys from a specific url and then use them to connect to AWS Service 
+# Get the keys from a specific url and then use them to connect to AWS Service
 
-# Set up a connection to the AWS service. 
+# Set up a connection to the AWS service.
 
 # Get a list of the queues that exists and then print the list out
-
-
-
