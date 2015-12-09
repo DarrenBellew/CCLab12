@@ -69,15 +69,17 @@ def CreateAQueue():
 	return Response(response=resp, mimetype="application/json")
 
 
-@app.route("/queues", methods=["DELETE"])
-def DeleteAQueue(queueName):
+@app.route("/queues/<name>", methods=["DELETE"])
+def DeleteAQueue(name):
 	conn = get_conn()
+	name = "C13729611_" + name
+
 	resp = ""
-	if "/747210654827/"+queueName in rs:
+	if "/747210654827/"+name in rs:
 		conn.delete_queue(conn.get_queue('queueName'))
-		resp = "queue '" + queueName + "' is now deleted."
+		resp = "queue '" + name + "' is now deleted."
 	else:
-		resp = "queue '" + queueName + "' is not deleted."
+		resp = "queue '" + name + "' is not deleted."
 
 	resp = {"response": resp}
 
