@@ -132,9 +132,19 @@ def ReadMessage(name):
 def ConsumeMessage(name):
 	name = "C13729611_" + name
 	conn = get_conn()
-	rs = conn.get_conn()
-	resp = {"Response": "Remove message " + str(deleteMessage(rs, name))}
+	rs = conn.get_queue(name)
+
+	m = rs.read(60)
+	rs.delete_message(m)
+
+	resp = {"Response": "Remove message " + str(m.get_body())}
 	resp = json.dumps(resp)
+
+
+	q = conn.get_queue(queueName)
+	m = q.read(60)
+	q.delete_message(m)
+	return m.get_body()
 
 # Get the keys from a specific url and then use them to connect to AWS Service
 
