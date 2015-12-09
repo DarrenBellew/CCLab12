@@ -119,10 +119,10 @@ def WriteMessage(name):
 def ReadMessage(name):
 	name = "C13729611_"+name
 	conn = get_conn()
-	rs = conn.get_conn()
+	rs = conn.get_queue(name)
 
 	m = []
-	for i in range(0, q.count()):
+	for i in range(0, rs.count()):
 		m.append(rs.read(60).get_body())
 
 	resp = json.dumps(m)
