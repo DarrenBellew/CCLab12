@@ -6,7 +6,7 @@ from boto.sqs.connection import SQSConnection
 from boto.exception import SQSError
 import sys
 import json
-from flask import Flask, requests, redirect, url_for, Response
+from flask import Flask, request, redirect, url_for, Response
 
 app = Flask(__name__)
 # curl -s -X GET -H 'Accept: application/json'
