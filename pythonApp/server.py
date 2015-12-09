@@ -74,7 +74,7 @@ def DeleteAQueue(name):
 	conn = get_conn()
 	name = "C13729611_" + name
 	rs=conn.get_all_queues()
-	resp = ""
+	resp = "failed"
 	if "/747210654827/"+name in rs:
 		conn.delete_queue(conn.get_queue(name))
 		resp = "queue '" + name + "' is now deleted."
