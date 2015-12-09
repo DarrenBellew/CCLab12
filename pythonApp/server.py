@@ -54,7 +54,7 @@ def ListAllQueues():
 	resp = json.dumps(all)
 	return Response(response=resp, mimetype="application/json")
 
-@app.route("/queues", methods["POST"])
+@app.route("/queues", methods=["POST"])
 def CreateAQueue(queueName):
 	queueName = "C13729611_" + queueName
 	conn = get_conn()
@@ -66,7 +66,7 @@ def CreateAQueue(queueName):
 	return Response(response=resp, mimetype="application/json")
 
 
-@app.route("/queues", methods["DELETE"])
+@app.route("/queues", methods=["DELETE"])
 def DeleteAQueue(queueName):
 	conn = get_conn()
 	rs = conn.get_all_queues()
@@ -79,7 +79,7 @@ def DeleteAQueue(queueName):
 
 	resp = {"response": resp}
 
-@app.route("/queues/<name>/msgs/count", methods["GET"])
+@app.route("/queues/<name>/msgs/count", methods=["GET"])
 def CountQueues(name):
 	name = "C13729611_"+name
 	conn = get_conn()
@@ -89,7 +89,7 @@ def CountQueues(name):
 	resp = json.dumps(resp)
 	return Response(response = resp, mimetype="application/json")
 
-@app.route("/queues/<name>/msgs", methods["POST"])
+@app.route("/queues/<name>/msgs", methods=["POST"])
 def WriteMessage(name, message):
 	name = "C13729611_"+name
 	conn = get_conn()
@@ -106,7 +106,7 @@ def WriteMessage(name, message):
 	resp = json.dumps(resp)
 	return Response(response=resp,mimetype="application/json")
 
-@app.route("/queues/<name>/msgs", methods["GET"])
+@app.route("/queues/<name>/msgs", methods=["GET"])
 def ReadMessage(name):
 	name = "C13729611_"+name 
 	conn = get_conn()
@@ -119,7 +119,7 @@ def ReadMessage(name):
 	resp = json.dumps(m)
 	return Response(response=resp, mimetype="application/json")
 
-@app.route("/queues/<name>/msgs", methods["DELETE"])
+@app.route("/queues/<name>/msgs", methods[="DELETE"])
 def ConsumeMessage(name):
 	name = "C13729611_" + name
 	conn = get_conn()
