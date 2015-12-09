@@ -72,7 +72,6 @@ def CreateAQueue():
 @app.route("/queues", methods=["DELETE"])
 def DeleteAQueue(queueName):
 	conn = get_conn()
-	rs = conn.get_all_queues()
 	resp = ""
 	if "/747210654827/"+queueName in rs:
 		conn.delete_queue(conn.get_queue('queueName'))
