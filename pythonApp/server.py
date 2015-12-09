@@ -76,7 +76,7 @@ def DeleteAQueue(name):
 	rs=conn.get_all_queues()
 	resp = ""
 	if "/747210654827/"+name in rs:
-		conn.delete_queue(conn.get_queue('queueName'))
+		conn.delete_queue(conn.get_queue(name))
 		resp = "queue '" + name + "' is now deleted."
 	else:
 		resp = "queue '" + name + "' is not deleted."
