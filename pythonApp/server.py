@@ -119,7 +119,7 @@ def ReadMessage(name):
 	resp = json.dumps(m)
 	return Response(response=resp, mimetype="application/json")
 
-@app.route("/queues/<name>/msgs", methods[="DELETE"])
+@app.route("/queues/<name>/msgs", methods=["DELETE"])
 def ConsumeMessage(name):
 	name = "C13729611_" + name
 	conn = get_conn()
