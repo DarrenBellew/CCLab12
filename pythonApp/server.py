@@ -45,7 +45,7 @@ def index():
 @app.route("/queues", methods=["GET"])
 def ListAllQueues():
 	rs = get_conn().get_all_queues()
-	all[]
+	all = []
 	for q in rs:
 		all.append(q.name)
 	resp = json.dumps(all)
