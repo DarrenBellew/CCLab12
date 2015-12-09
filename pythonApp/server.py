@@ -1,3 +1,4 @@
+from flask import Flask, Response, render_template, request
 import boto.sqs
 import boto.sqs.queue
 import requests
@@ -9,6 +10,8 @@ import sys
 
 # curl -s -X GET -H 'Accept: application/json'
 # http://localhost:5000/queues | python	-mjson.tool
+
+app = Flask(__name__)
 
 def get_conn():
 	res = requests.get('http://ec2-52-30-7-5.eu-west-1.compute.amazonaws.com:81/key')
