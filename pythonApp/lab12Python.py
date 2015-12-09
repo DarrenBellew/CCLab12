@@ -16,15 +16,30 @@ def get_conn():
 	conn = boto.sqs.connect_to_region("eu-west-1", aws_access_key_id=keyId, aws_secret_access_key=key)
 	return conn
 
-# @app.route('/images', methods=['GET'])
+@app.route("/")
+def index():
+    return """
+	Available API endpoints:
 
-# GET /queues List all queues
-# POST /queues Create a new queue
-# DELETE /queues/<qid>	Delete a specific queue
-# GET /queues/<qid>/msgs Get a message, return it to the user	
-# GET /queues/<qid>/msgs/count Return the number of messages in a queue
-# POST /queues/<qid>/msgs Write a new message to a queue
-# DELETE /queues/<qid>/msgs Get	and	delete a message from the queue
+	GET /containers                     List all containers
+	GET /containers?state=running      List running containers (only)
+	GET /containers/<id>                Inspect a specific container
+	GET /containers/<id>/logs           Dump specific container logs
+	GET /images                         List all images
+
+
+	POST /images                        Create a new image
+	POST /containers                    Create a new container
+
+	PATCH /containers/<id>              Change a container's state
+	PATCH /images/<id>                  Change a specific image's attributes
+
+	DELETE /containers/<id>             Delete a specific container
+	DELETE /containers                  Delete all containers (including running)
+	DELETE /images/<id>                 Delete a specific image
+	DELETE /images                      Delete all images
+	"""
+
 
 # List all queues
 @app.route("/queues", methods=["GET"])
@@ -114,3 +129,6 @@ def ConsumeMessage(name):
 # Set up a connection to the AWS service.
 
 # Get a list of the queues that exists and then print the list out
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0",port=5000, debug=True)
