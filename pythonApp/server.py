@@ -96,10 +96,13 @@ def CountQueues(name):
 	return Response(response = resp, mimetype="application/json")
 
 @app.route("/queues/<name>/msgs", methods=["POST"])
-def WriteMessage(name, message):
+def WriteMessage(name):
 	name = "C13729611_"+name
 	conn = get_conn()
 	rs = conn.get_queue(queueName)
+
+	body = request.get_json(force=True)
+	message = body["content"]
 
 	m = Message()
 	m.set_body(message)
