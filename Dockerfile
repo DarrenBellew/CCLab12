@@ -1,4 +1,3 @@
-# set base
 FROM python:2.7
 
 # FILE author

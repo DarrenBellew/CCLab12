@@ -1,6 +1,6 @@
 import boto.sqs
 import boto.sqs.queue
-import requests
+import boto, requests
 from boto.sqs.message import Message
 from boto.sqs.connection import SQSConnection
 from boto.exception import SQSError
