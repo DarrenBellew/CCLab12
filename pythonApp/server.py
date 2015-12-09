@@ -61,8 +61,7 @@ def CreateAQueue():
 	name = body["name"]
 
 	name = "C13729611_" + name
-	conn = get_conn()
-	rs = conn.get_all_queues()
+	conn = get_conn()	
 	conn.create_queue(name)
 	resp = "queue '" + name + "'' is now created."
 	resp = {"response": resp}
