@@ -136,7 +136,8 @@ def ConsumeMessage(name):
 
 	m = rs.read(60)
 	rs.delete_message(m)
-	resp = {"Response": "Remove message " + str(m.get_body())}
+	resp = "Remove message " + str(m.get_body())
+	resp = {"Response": resp}
 	resp = json.dumps(resp)
 	return Response(response=resp, mimetype="application/json")
 
