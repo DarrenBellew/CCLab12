@@ -6,9 +6,13 @@ from boto.sqs.connection import SQSConnection
 from boto.exception import SQSError
 import sys
 import json
+from flask import Flask, requests, redirect, url_for, Response
 
+app = Flask(__name__)
 # curl -s -X GET -H 'Accept: application/json'
 # http://localhost:5000/queues | python	-mjson.tool
+
+
 
 def get_conn():
 	res = requests.get('http://ec2-52-30-7-5.eu-west-1.compute.amazonaws.com:81/key')
@@ -45,13 +49,13 @@ def index():
 @app.route("/queues", methods=["GET"])
 def ListAllQueues():
 	rs = get_conn().get_all_queues()
-	all[]
+	all = []
 	for q in rs:
 		all.append(q.name)
 	resp = json.dumps(all)
 	return Response(response=resp, mimetype="application/json")
 
-@app.route("/queues", methods["POST"])
+@app.route("/queues", methods=["POST"])
 def CreateAQueue(queueName):
 	queueName = "C13729611_" + queueName
 	conn = get_conn()
@@ -63,7 +67,7 @@ def CreateAQueue(queueName):
 	return Response(response=resp, mimetype="application/json")
 
 
-@app.route("/queues", methods["DELETE"])
+@app.route("/queues", methods=["DELETE"])
 def DeleteAQueue(queueName):
 	conn = get_conn()
 	rs = conn.get_all_queues()
@@ -76,7 +80,7 @@ def DeleteAQueue(queueName):
 
 	resp = {"response": resp}
 
-@app.route("/queues/<name>/msgs/count", methods["GET"])
+@app.route("/queues/<name>/msgs/count", methods=["GET"])
 def CountQueues(name):
 	name = "C13729611_"+name
 	conn = get_conn()
@@ -86,7 +90,7 @@ def CountQueues(name):
 	resp = json.dumps(resp)
 	return Response(response = resp, mimetype="application/json")
 
-@app.route("/queues/<name>/msgs", methods["POST"])
+@app.route("/queues/<name>/msgs", methods=["POST"])
 def WriteMessage(name, message):
 	name = "C13729611_"+name
 	conn = get_conn()
@@ -103,7 +107,7 @@ def WriteMessage(name, message):
 	resp = json.dumps(resp)
 	return Response(response=resp,mimetype="application/json")
 
-@app.route("/queues/<name>/msgs", methods["GET"])
+@app.route("/queues/<name>/msgs", methods=["GET"])
 def ReadMessage(name):
 	name = "C13729611_"+name 
 	conn = get_conn()
@@ -116,7 +120,7 @@ def ReadMessage(name):
 	resp = json.dumps(m)
 	return Response(response=resp, mimetype="application/json")
 
-@app.route("/queues/<name>/msgs", methods["DELETE"])
+@app.route("/queues/<name>/msgs", methods=["DELETE"])
 def ConsumeMessage(name):
 	name = "C13729611_" + name
 	conn = get_conn()
